@@ -1,0 +1,25 @@
+
+
+
+<%-include('header')-%>
+
+    <nav class="navbar">
+    <div class="container-fluid">
+      <span class="navbar-text text-white">
+        HOME
+      </span>
+    </div>
+  </nav>
+
+   <div class="text-center center-div">
+    <div class="container w-50 border-div">
+        <h2 class="text-white p-4 logout-heading">Welcome</h2>
+        <h5 class="text-white"><%= locals.user ? user : "User" %></h5>
+        <input type="button" value="LOGOUT" id="logoutBtn" class="logout_btn text-white">
+        <!-- <a href="/route/logout">Logout</a> -->
+    </div>
+   </div>
+</script>
+
+
+<%-include('footer')-%>

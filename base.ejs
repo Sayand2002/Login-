@@ -1,0 +1,100 @@
+<%-include('header')-%>
+
+   <div class="center-div">
+    <div class="container py-5 loginbox p-3">
+        <div class="title text-center pb-3">
+            <h2 class="font-weight-bold ">User Login</h2>
+            <span>Log in for existing user</span>
+        </div>
+        
+        <form action="/route/login" method="POST" novalidate onsubmit="return btnClick()">
+            <div class="form-group pb-3 ">
+                <input  type="text" class="form-control" placeholder="Username"  name="name" id="username">
+                    <small class="form-text text-white" id="printText">Registered username</small>
+                <div>
+                    <small class="form-text text-danger" id="err_user"></small>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="password" name="password" id="password">
+                <small class="form-text text-white" id="printPasswd">Registered password</small>            
+                <div>
+                    <small class="form-text text-danger" id="err_passwd"></small>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <input type="submit" class="btn btn-success rounded- mt-3" id="btn-submit"> 
+            </div>
+        </form>
+        <%if(locals.message){%>
+            <div class="text-center pt-5 text-danger">
+                <%=message%>
+            </div>
+            <%}%>
+            <%if(locals.logout){%>
+                <div class="text-center pt-5 text-success">
+                    <%=logout%>
+                </div>
+            <%}%>
+    </div>
+   </div>
+  
+<script>
+
+    function btnClick() {
+        const user = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        const userErrShow = document.getElementById("err_user");
+        const passwdErrShow = document.getElementById("err_passwd");
+
+        const passwdRegx = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/;
+        const userRegx = /^(?!_)[a-zA-Z0-9_]{4,16}(?<!_)$/;
+        
+        document.getElementById('username').addEventListener('focusin',() => {
+            userErrShow.innerHTML = "";
+        })
+
+        document.getElementById('password').addEventListener('focusin',() => {
+            passwdErrShow.innerHTML = "";
+        })
+
+        if(user === "" || user === undefined){
+            userErrShow.innerHTML = "username can't be blank";
+            return false;
+        }
+        else{
+            userErrShow.innerHTML = "";
+        }
+
+        if(!userRegx.test(user)){
+            userErrShow.innerHTML = "Please enter a valid username";
+            return false;
+        }
+        else{
+            userErrShow.innerHTML = "";
+        }
+
+        if(password === "" || password === undefined){
+            passwdErrShow.innerHTML = "password can't be blank";
+            return false;
+        }
+        else{
+            passwdErrShow.innerHTML = "";
+        }
+
+        if(!passwdRegx.test(password)){
+            passwdErrShow.innerHTML = "Please enter a valid password";
+            return false;
+        }
+        else{
+            passwdErrShow.innerHTML = "";
+        }
+
+
+        return true
+    }
+
+</script>
+
+<%-include('footer')-%>
